@@ -1,0 +1,12 @@
+html{
+  background-color: black;
+}
+
+body{
+  background-color: black !important;
+}
+
+li{
+  color: rgb(203, 203, 203);
+  font-size: 1.5vw;
+}

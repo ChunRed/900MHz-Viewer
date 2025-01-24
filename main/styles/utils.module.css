@@ -1,0 +1,19 @@
+.container-fluid{
+  background-color: black;
+}
+
+.row{
+  background-color: black;
+}
+
+.messages { 
+  list-style-type: none; margin: 0; padding: 0; 
+}
+
+.messages li { 
+  padding: 5px 10px; 
+}
+
+.messages li:nth-child(odd) { 
+  background: #4e4e4e; 
+}
