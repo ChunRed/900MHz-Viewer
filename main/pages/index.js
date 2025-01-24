@@ -24,7 +24,6 @@ export default function Home({ allPostsData }) {
       <div className="row ">
         <div className="col">
           <SocketIo></SocketIo>
-
         </div>
       </div>
 

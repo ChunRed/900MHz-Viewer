@@ -4,7 +4,7 @@ import $ from "jquery";
 import utilStyles from "../../styles/utils.module.css"
 
 import FireBase, { writeUserData, firebase_data_length} from '../api/firebase';
-
+import ViewShow, {ChangeColor} from '../api/viewshow'
 
 const Socket = ({ msg, setMsg }) => {
     const [ws, setWs] = useState(null)
@@ -36,6 +36,11 @@ const Socket = ({ msg, setMsg }) => {
                 writeUserData(getRealTime().toString(),newmsg);
 
                 document.getElementById('count').innerHTML = "Count: " + firebase_data_length;
+
+
+
+                //change seven-seg viewer color 
+                ChangeColor(newmsg);
             })
         }
 
@@ -47,7 +52,7 @@ const Socket = ({ msg, setMsg }) => {
 
     function getRealTime() {
         const currentTime = Date.now();
-        //console.log(new Date(Math.round(currentTime / 1000) * 1000));
+        console.log(new Date(Math.round(currentTime / 1000) * 1000));
         return (new Date(Math.round(currentTime / 1000) * 1000));
     }
 
@@ -55,8 +60,7 @@ const Socket = ({ msg, setMsg }) => {
 
     const sendMessage = () => {
         //以 emit 送訊息，並以 getMessage 為名稱送給 server 捕捉
-        const timestamp = (new Date).getTime();
-        ws.emit('getMessage', listValue);
+        ws.emit('Send_MSG', '0001000,0000101,0100001,1000000,0000011,0010001,0001000,');
     }
 
 
@@ -64,17 +68,26 @@ const Socket = ({ msg, setMsg }) => {
         <div className="containter">
 
             <div className="row">
-                <div className='text-center ' >
+                <div className="col-2"></div>
+                <div className='text-center col-4' >
                     <input className='mt-2 btn btn-outline-light' type='button' value='connect server' onClick={connectWebSocket} />
-
-                    <h3 className="text-light mt-2" >{serverState}</h3>
-
                 </div>
+
+                <div className='text-center col-4' >
+                    <input className='mt-2 btn btn-outline-light' type='button' value='send message' onClick={sendMessage} />
+                </div>
+                <div className="col-2"></div>
             </div>
 
-            <div className="row d-flex justify-content-center">
-                <div className="col-6 text-light text-center" id='date'>Date: </div>
-                <div className="col-6 text-light text-center" id='count'>Count: 0</div>
+            <div className="row d-flex justify-content-center mt-3">
+                <div className="col-2"></div>
+                <div className="col-4 text-light text-center" id='date'>Date: </div>
+                <div className="col-4 text-light text-center" id='count'>Count: 0</div>
+                <div className="col-2"></div>
+            </div>
+
+            <div className="row mt-3">
+                <ViewShow id="1" ></ViewShow>   
             </div>
 
             <div className="row mt-3">
